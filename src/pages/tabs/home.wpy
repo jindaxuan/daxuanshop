@@ -1,0 +1,111 @@
+<!--  -->
+<template>
+  <view>
+    <swiper autoplay circular indicator-dots>
+      <block wx:for="{{swiperList}}" wx:key="{{index}}">
+        <swiper-item>
+          <navigator url="{{item.navigator_url}}" open-type="{{item.open_type}}">
+            <image src="{{item.image_src}}" />
+          </navigator>
+        </swiper-item>
+      </block>
+    </swiper>
+    <view class="cateList">
+      <block wx:for="{{cateItems}}" wx:key="{{index}}" class="cateItems">
+        <navigator
+          url="/pages/tabs/cates"
+          open-type="{{item.open_type}}"
+          hover-class="none"
+          wx:if="{{item.navigator_url}}"
+        >
+          <image src="{{item.image_src}}" />
+        </navigator>
+        <image src="{{item.image_src}}" wx:else />
+      </block>
+    </view>
+  </view>
+</template>
+
+
+<script>
+import wepy from 'wepy'
+// import mix from '@/mixins/tabs/home.js'
+export default class Example extends wepy.page {
+  config = {
+    // navigationBarTitleText: '大煊商城'
+  }
+
+  data = {
+    swiperList: [],
+    cateItems: []
+  }
+  // 获取轮播图数据
+  async getSwiperData() {
+    const { data: res } = await wepy.request({
+      url: 'https://www.zhengzhicheng.cn/api/public/v1/home/swiperdata', // 开发者服务器接口地址",
+      data: '', // 请求的参数",
+      method: 'GET'
+    })
+    console.log(res)
+    if (res.meta.status !== 200) {
+      // 显示微信界面
+      return wepy.baseToast()
+    }
+    this.swiperList = res.message
+    this.$apply()
+  }
+  // 获取cate数据
+  async getCateItems() {
+    const { data: res } = await wepy.request({
+      url: 'https://www.zhengzhicheng.cn/api/public/v1/home/catitems', // 开发者服务器接口地址",
+      data: '', // 请求的参数",
+      method: 'GET'
+    })
+    console.log(res)
+    if (res.meta.status) {
+      // 显示微信界面
+      // return wepy.baseToast()
+    }
+    this.cateItems = res.message
+    this.$apply()
+  }
+  components = {}
+
+  methods = {}
+
+  events = {}
+
+  watch = {}
+
+  computed = {}
+
+  onLoad() {
+    this.getSwiperData()
+    this.getCateItems()
+  }
+
+  onShow() {}
+}
+</script>
+
+<style lang="less">
+swiper {
+  height: 350rpx;
+  navigator,
+  image {
+    height: 100%;
+    width: 750rpx;
+  }
+}
+.cateList {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin-top: 20px;
+  image {
+    // flex: 10%;
+    width: 128rpx;
+    height: 140rpx;
+  }
+}
+</style>

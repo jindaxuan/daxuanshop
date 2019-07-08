@@ -1,0 +1,75 @@
+
+
+<script>
+import wepy from 'wepy'
+import 'wepy-async-function'
+import '@/baseApi.js'
+export default class extends wepy.app {
+  config = {
+    pages: [
+      'pages/tabs/home',
+      'pages/tabs/cart',
+      'pages/tabs/cates',
+      'pages/tabs/me',
+      'pages/tabs/search',
+      'pages/goods_detail/main'
+    ],
+    window: {
+      backgroundTextStyle: 'dark',
+      navigationBarBackgroundColor: '#D81F07',
+      navigationBarTitleText: '大煊商城',
+      navigationBarTextStyle: 'white'
+    },
+    tabBar: {
+      selectedColor: '#D81F07',
+      list: [
+        {
+          pagePath: 'pages/tabs/home',
+          text: '首页',
+          iconPath: '/assets/icons/home.png',
+          selectedIconPath: '/assets/icons/home-active.png'
+        },
+        {
+          pagePath: 'pages/tabs/cates',
+          text: 'cates',
+          iconPath: '/assets/icons/cates.png',
+          selectedIconPath: '/assets/icons/cates-active.png'
+        },
+        {
+          pagePath: 'pages/tabs/cart',
+          text: 'cart',
+          iconPath: '/assets/icons/cart.png',
+          selectedIconPath: '/assets/icons/cart-active.png'
+        },
+        {
+          pagePath: 'pages/tabs/search',
+          text: 'search',
+          iconPath: '/assets/icons/search.png',
+          selectedIconPath: '/assets/icons/search-active.png'
+        },
+        {
+          pagePath: 'pages/tabs/me',
+          text: 'me',
+          iconPath: '/assets/icons/my.png',
+          selectedIconPath: '/assets/icons/my-active.png'
+        }
+      ]
+    }
+  }
+
+  globalData = {
+    userInfo: null
+  }
+
+  constructor() {
+    super()
+    this.use('requestfix')
+    // 开启异步，通过这一行代码可以为异步的api，开启promise功能，这样，异步api调用的结果返回值是Promise对象
+    this.use('promisify')
+  }
+
+  onLaunch() {
+    console.log('小程序启动了')
+  }
+}
+</script>
