@@ -1,32 +1,25 @@
 <!--  -->
 <template>
-  <view class="container">cate分类列表</view>
+  <!-- 左侧控制滚动条 -->
+  <scroll-view class="scroll" scroll-y style="height:{{wh}}px">
+    <van-badge-group active="{{ active }}" bind:change="onChange">
+      <van-badge title="{{item.cat_name}}" wx:for="{{catesList}}" wx:key="index"/>
+    </van-badge-group>
+  </scroll-view>
+  
 </template>
 
 <script>
 import wepy from 'wepy'
+import mix from '@/mixins/tabs/cates'
 export default class Example extends wepy.page {
-  config = {
-    // navigationBarTitleText: ''
-  }
-
-  data = {}
-
-  components = {}
-
-  methods = {}
-
-  events = {}
-
-  watch = {}
-
-  computed = {}
-
-  onLoad() {}
-
-  onShow() {}
+  mixins = [mix]
 }
 </script>
 
-<style>
+<style lang="less">
+.scroll{
+  width: 200rpx;
+  // height: 667*2rpx;
+}
 </style>

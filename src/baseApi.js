@@ -15,9 +15,17 @@ wepy.baseToast = function(str = '获取数据失败'){
 }
 // 发送请求
 wepy.get = function(url,data = { }){
-	wepy.request({
-		url: baseURL + url,
-		data, 
-		method: 'GET'
-	})
+	return wepy.request({
+			url: baseURL + url,
+			data, 
+			method: 'GET'
+		})
+}
+// post 
+wepy.post = function(url,data = { }){
+	return wepy.request({
+			url: baseURL,
+			data, 
+			method: 'POST'
+		})
 }

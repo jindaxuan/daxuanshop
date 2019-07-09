@@ -10,6 +10,7 @@
         </swiper-item>
       </block>
     </swiper>
+    <!-- cate列表 -->
     <view class="cateList">
       <block wx:for="{{cateItems}}" wx:key="{{index}}" class="cateItems">
         <navigator
@@ -23,68 +24,40 @@
         <image src="{{item.image_src}}" wx:else />
       </block>
     </view>
+    <!-- 楼层导航列表 -->
+    <view class="floor-container">
+      <view class="floor-item" wx:for="{{floorData}}" wx:key="index">
+        <!-- 楼层标题 -->
+        <image class="floor-item-title" src="{{item.floor_title.image_src}}" />
+        <!-- 楼层图片 -->
+        <view class="floor-img-box">
+          <image
+            class="floor-item-pic"
+            wx:for="{{item.product_list}}"
+            wx:key="index"
+            @tap="goGoodsList({{item.navigator_url}})"
+            src="{{item.image_src}}"
+            style="width:{{item.image_width}}rpx;"
+          />
+        </view>
+      </view>
+    </view>
   </view>
 </template>
 
 
 <script>
 import wepy from 'wepy'
-// import mix from '@/mixins/tabs/home.js'
+import mix from '@/mixins/tabs/home.js'
 export default class Example extends wepy.page {
-  config = {
-    // navigationBarTitleText: '大煊商城'
-  }
-
-  data = {
-    swiperList: [],
-    cateItems: []
-  }
-  // 获取轮播图数据
-  async getSwiperData() {
-    const { data: res } = await wepy.request({
-      url: 'https://www.zhengzhicheng.cn/api/public/v1/home/swiperdata', // 开发者服务器接口地址",
-      data: '', // 请求的参数",
-      method: 'GET'
-    })
-    console.log(res)
-    if (res.meta.status !== 200) {
-      // 显示微信界面
-      return wepy.baseToast()
+  mixins = [mix]
+  methods = {
+    goGoodsList(url) {
+      wepy.navigateTo({
+        url
+      })
     }
-    this.swiperList = res.message
-    this.$apply()
   }
-  // 获取cate数据
-  async getCateItems() {
-    const { data: res } = await wepy.request({
-      url: 'https://www.zhengzhicheng.cn/api/public/v1/home/catitems', // 开发者服务器接口地址",
-      data: '', // 请求的参数",
-      method: 'GET'
-    })
-    console.log(res)
-    if (res.meta.status) {
-      // 显示微信界面
-      // return wepy.baseToast()
-    }
-    this.cateItems = res.message
-    this.$apply()
-  }
-  components = {}
-
-  methods = {}
-
-  events = {}
-
-  watch = {}
-
-  computed = {}
-
-  onLoad() {
-    this.getSwiperData()
-    this.getCateItems()
-  }
-
-  onShow() {}
 }
 </script>
 
@@ -106,6 +79,25 @@ swiper {
     // flex: 10%;
     width: 128rpx;
     height: 140rpx;
+  }
+}
+.floor-container {
+  .floor-item {
+    .floor-item-title {
+      height: 50rpx;
+      width: 640rpx;
+    }
+  }
+  .floor-img-box {
+    .floor-item-pic {
+      float: left;
+      height: 190rpx;
+      margin: 8rpx;
+      margin-top: 0;
+      &:nth-child(1) {
+        height: 390rpx;
+      }
+    }
   }
 }
 </style>

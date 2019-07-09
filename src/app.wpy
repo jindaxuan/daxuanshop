@@ -12,7 +12,8 @@ export default class extends wepy.app {
       'pages/tabs/cates',
       'pages/tabs/me',
       'pages/tabs/search',
-      'pages/goods_detail/main'
+      'pages/goods_detail/main',
+      'pages/goods_list'
     ],
     window: {
       backgroundTextStyle: 'dark',
@@ -54,6 +55,11 @@ export default class extends wepy.app {
           selectedIconPath: '/assets/icons/my-active.png'
         }
       ]
+    },
+    // 引用并注册全局组件
+    usingComponents: {
+      'van-badge': './assets/vant/badge/index',
+      'van-badge-group': './assets/vant/badge-group/index'
     }
   }
 
