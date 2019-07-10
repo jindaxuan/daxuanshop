@@ -1,32 +1,90 @@
 <!--  -->
 <template>
-  <view class="container">商品</view>
+  <view class="container">
+    <!-- 轮播图区域 -->
+    <swiper indicator-dots autoplay circular>
+      <block wx:for="{{goodsInfo.pics}}" wx:key="index">
+        <swiper-item>
+          <image src="{{item.pics_big}}"/>
+        </swiper-item>
+      </block>
+    </swiper>
+    <!-- 商品信息区域 -->
+    <view class="goods_info">
+      <!-- 价格名称运费 -->
+      <view class="box1">
+        <view class="price">￥{{goodsInfo.goods_price}}</view>
+        <view class="title">
+          <view class="left">{{goodsInfo.goods_name}}</view>
+          <view class="right">
+            <van-icon name="star-o"></van-icon>
+            <view class="star">收藏</view>
+          </view>
+        </view>
+        <view class="yunfei">快递：免运费</view>
+      </view>
+      <view class="step_line"></view>
+      <view class="box2"></view>
+      <view class="box3"></view>
+    </view>
+  </view>
 </template>
 
 <script>
 import wepy from 'wepy'
+import mix from '@/mixins/goods_detail/main.js'
 export default class Example extends wepy.page {
   config = {
-    // navigationBarTitleText: ''
+    navigationBarTitleText: '商品详情页'
   }
-
-  data = {}
-
-  components = {}
-
-  methods = {}
-
-  events = {}
-
-  watch = {}
-
-  computed = {}
-
-  onLoad() {}
-
+  mixins = [mix]
   onShow() {}
 }
 </script>
 
 <style lang='less'>
+swiper{
+  height: 750rpx;
+  // width: 100%;
+  image{
+    width: 100%;
+    height: 100%;
+  }
+}
+.goods_info{
+  .step_line{
+    border-bottom: 30rpx solid #efefef;
+  }
+  .price{
+    font-size: 50rpx;
+    font-weight: 500;
+    color: red;
+    padding: 20rpx
+  }
+  .title{
+    padding: 10rpx;
+    display: flex;
+    justify-content: space-between;
+    .left{
+      font-size: 28rpx;
+      padding-right: 40rpx;
+    };
+    .right{
+      font-weight: 500;
+      border-left: 1px solid #ddd;
+      padding: 0 10rpx;
+      width: 200rpx;
+      text-align: center;
+      .star{
+        font-size: 20rpx;
+      }
+    }
+  }
+  .yunfei{
+      color: #666;
+      font-size: 26rpx;
+      font-weight: bold;
+      line-height: 80rpx; 
+    }
+}
 </style>

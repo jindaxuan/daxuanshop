@@ -6,10 +6,22 @@ export default class Example extends wepy.mixin {
 	data = {
 		catesList: [],
 		wh: 0,
+		// 所有的二级分类数据
+		secondCate: []
 	}
 	methods = {
+
 		onChange(e) {
-			console.log(e.detail)
+			// 获取索引值
+			// console.log(e.detail)
+			this.secondCate = this.catesList[e.detail].children
+			console.log(this.secondCate)
+		},
+		// 点击跳转到商品列表
+		goGoodsList(cid){
+			console.log(cid)
+			wepy.navigateTo({ url: '/pages/goods_list?cid=' + cid});
+			
 		}
 	}
 	// 获取左侧栏目
@@ -20,6 +32,7 @@ export default class Example extends wepy.mixin {
 			return wepy.baseToast()
 		}
 		this.catesList = res.message
+		this.secondCate = this.catesList[0].children
 		this.$apply()
 		// console.log(this.catesList)
 	}

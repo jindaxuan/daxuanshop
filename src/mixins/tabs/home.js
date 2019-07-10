@@ -9,7 +9,13 @@ export default class Example extends wepy.mixin {
     cateItems: [],
     floorData: []
   }
-  
+  methods = {
+    goGoodsList(url) {
+      wepy.navigateTo({
+        url
+      })
+    }
+  }
   // 获取轮播图数据
   async getSwiperData() {
     const { data: res } = await wepy.get('/home/swiperdata')
@@ -40,8 +46,6 @@ export default class Example extends wepy.mixin {
     this.$apply()
   }
   components = {}
-
-  methods = {}
 
   events = {}
 

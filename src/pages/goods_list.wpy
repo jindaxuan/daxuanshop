@@ -1,18 +1,42 @@
 <!--  -->
 <template>
-  <view class="container">商品列表</view>
+  <view class="container">
+    <!-- 商品列表区域 -->
+    <block wx:for="{{goodsList}}" wx:key="index">
+      <van-card num="{{item.goods_number}}" price="{{item.goods_price}}" title="{{item.goods_name}}" thumb="{{ item.goods_small_logo }}" @tap="goGoodsDetail({{item.goods_id}})" />
+      <!-- 分割线 -->
+      <view class="line"></view>
+    </block>
+    <!-- 数据加载完毕之后的  -->
+    <view class="over_line" wx:if="{{flag}}">----------我是有底线的-----------</view>
+  </view>
 </template>
 
 <script>
 import wepy from 'wepy'
+import mix from '@/mixins/goods_list'
 export default class Example extends wepy.page {
+  // 注意 config的节点只能写到这页
   config = {
-    // navigationBarTitleText: ''
+    navigationBarTitleText: '商品列表',
+    // 设置下拉刷新距离，默认为50px
+    onReachBottomDistance: 100,
+    enablePullDownRefresh:true,
+    backgroundColor:'#eee'
   }
-
-  data = {}
+  mixins = [mix]
 }
 </script>
 
 <style lang='less'>
+  .line{
+    border:1rpx solid #ccc;
+  }
+  .over_line{
+    font-size: 24rpx;
+    text-align: center;
+    height: 60rpx;
+    line-height: 50rpx;
+    color: #ddd;
+  }
 </style>

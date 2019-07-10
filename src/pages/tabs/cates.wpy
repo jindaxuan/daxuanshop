@@ -1,25 +1,65 @@
 <!--  -->
 <template>
-  <!-- 左侧控制滚动条 -->
-  <scroll-view class="scroll" scroll-y style="height:{{wh}}px">
-    <van-badge-group active="{{ active }}" bind:change="onChange">
-      <van-badge title="{{item.cat_name}}" wx:for="{{catesList}}" wx:key="index"/>
-    </van-badge-group>
-  </scroll-view>
-  
+  <view class="cate-container">
+    <!-- 左侧控制滚动条 -->
+    <scroll-view class="scroll-left" scroll-y style="height:{{wh}}px">
+      <van-badge-group active="{{ active }}" bind:change="onChange">
+        <van-badge title="{{item.cat_name}}" wx:for="{{catesList}}" wx:key="index" />
+      </van-badge-group>
+    </scroll-view>
+    <!-- 右侧滚动区域:二级分类 -->
+    <scroll-view class="scroll-right" scroll-y style="height:{{wh}}px">
+      <block wx:for="{{secondCate}}" wx:key="index">
+        <van-row>
+          <van-col span="24" style="text-align:center">
+            <text class="cate_title" space="ensp">/ {{item.cat_name}} /</text>
+          </van-col>
+        </van-row>
+        <!-- 三级分类 -->
+        <van-row>
+          <block wx:for="{{item.children}}" wx:key="index">
+            <van-col span="8" class="cell" @tap="goGoodsList({{item.cat_id}})">
+              <image src="{{item.cat_icon}}" class="thumbimg" />
+              <view class="thumbTitle">{{item.cat_name}}</view>
+            </van-col>
+          </block>
+        </van-row>
+      </block>
+    </scroll-view>
+  </view>
 </template>
 
 <script>
-import wepy from 'wepy'
-import mix from '@/mixins/tabs/cates'
-export default class Example extends wepy.page {
-  mixins = [mix]
-}
+  import wepy from 'wepy'
+  import mix from '@/mixins/tabs/cates'
+  export default class Example extends wepy.page {
+    mixins = [mix]
+  }
 </script>
 
 <style lang="less">
-.scroll{
-  width: 200rpx;
-  // height: 667*2rpx;
-}
+  .cate-container {
+    display: flex;
+  }
+  .scroll-left {
+    width: 200rpx; // height: 667*2rpx;
+  }
+  .scroll-right {
+    .cate_title {
+      font-size: 26rpx;
+      font-weight: bold;
+      display: inline-block;
+      margin: 30rpx 0;
+    }
+  }
+  .cell {
+    text-align: center;
+    .thumbimg {
+      width: 120rpx;
+      height: 120rpx;
+    }
+    .thumbTitle {
+      font-size: 24rpx;
+    }
+  }
 </style>

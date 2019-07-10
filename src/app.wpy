@@ -58,8 +58,20 @@ export default class extends wepy.app {
     },
     // 引用并注册全局组件
     usingComponents: {
+      // 徽章组件
       'van-badge': './assets/vant/badge/index',
-      'van-badge-group': './assets/vant/badge-group/index'
+      'van-badge-group': './assets/vant/badge-group/index',
+      // 布局相关组件
+      'van-row': './assets/vant/row/index',
+      'van-col': './assets/vant/col/index',
+      // 搜索相关的组件
+      'van-search': './assets/vant/search/index',
+      // 单元格组件
+      'van-cell': './assets/vant/cell/index',
+      'van-cell-group': './assets/vant/cell-group/index',
+      'van-icon': './assets/vant/icon/index',
+      'van-tag': './assets/vant/tag/index',
+      'van-card': './assets/vant/card/index'
     }
   }
 
@@ -72,6 +84,33 @@ export default class extends wepy.app {
     this.use('requestfix')
     // 开启异步，通过这一行代码可以为异步的api，开启promise功能，这样，异步api调用的结果返回值是Promise对象
     this.use('promisify')
+
+    // 拦截器
+    this.intercept('request', {
+      // 发出请求时的回调函数
+      config(p) {
+        wepy.showLoading({
+          title: '数据加载中...'
+        })
+        // 必须返回OBJECT参数对象，否则无法发送请求到服务端
+        return p
+      },
+
+      // 请求成功后的回调函数
+      success(p) {
+        return p
+      },
+      // 请求失败后的回调函数
+      fail(p) {
+        return p
+      },
+
+      // 请求完成时的回调函数(请求成功或失败都会被执行)
+      complete(p) {
+        wepy.hideLoading()
+        console.log('request complete: ', p)
+      }
+    })
   }
 
   onLaunch() {

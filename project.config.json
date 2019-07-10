@@ -23,6 +23,7 @@
 	"miniprogramRoot": "dist/",
 	"simulatorType": "wechat",
 	"simulatorPluginLibVersion": {},
+	"libVersion": "2.7.4",
 	"condition": {
 		"search": {
 			"current": -1,
@@ -40,13 +41,34 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 0,
+			"current": 3,
 			"list": [
 				{
 					"id": 0,
 					"name": "分类页面的开发",
 					"pathName": "pages/tabs/cates",
 					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "搜索功能的演示",
+					"pathName": "pages/tabs/search",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "商品列表",
+					"pathName": "pages/goods_list",
+					"query": "query=手机",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "商品详情页",
+					"pathName": "pages/goods_detail/main",
+					"query": "goods_id=701",
 					"scene": null
 				}
 			]

@@ -51,13 +51,6 @@ import wepy from 'wepy'
 import mix from '@/mixins/tabs/home.js'
 export default class Example extends wepy.page {
   mixins = [mix]
-  methods = {
-    goGoodsList(url) {
-      wepy.navigateTo({
-        url
-      })
-    }
-  }
 }
 </script>
 
