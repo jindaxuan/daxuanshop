@@ -71,14 +71,43 @@ export default class extends wepy.app {
       'van-cell-group': './assets/vant/cell-group/index',
       'van-icon': './assets/vant/icon/index',
       'van-tag': './assets/vant/tag/index',
-      'van-card': './assets/vant/card/index'
+      'van-card': './assets/vant/card/index',
+      'van-tab': './assets/vant/tab/index',
+      'van-tabs': './assets/vant/tabs/index',
+      // 注册把HTML转换为小程序格式的组件
+      wxparse: './assets/wxparse/wxparse',
+      // 注册提交订单组件
+      'van-goods-action': './assets/vant/goods-action/index',
+      'van-goods-action-icon': './assets/vant/goods-action-icon/index',
+      'van-goods-action-button': './assets/vant/goods-action-button/index'
     }
   }
+  // 专门存储全局共享的数据
+  // 只需要通过this.$patrent.globalData 就可以拿到这个全局共享的数据
 
   globalData = {
-    userInfo: null
+    // 全局的购物车列表
+    cart: []
   }
-
+  addGoodsToCart(goods){
+    const i = this.globalData.cart.findIndex(x => x.id === goods.goods_id)
+    console.log(i)
+    if(i !== -1){
+      this.globalData.cart[i].count++
+      console.log(this.globalData.cart)
+      return
+    }
+    // 梳理出来的商品信息对象
+    const info = {
+      id: goods.goods_id,
+      name:goods.goods_name,
+      pic:goods.goods_small_logo,
+      count:1,
+      isCheck: true
+    }
+    this.globalData.cart.push(info)
+    console.log(this.globalData.cart)
+  }
   constructor() {
     super()
     this.use('requestfix')
