@@ -1,0 +1,19 @@
+<!--  -->
+<template>
+  <view class='container'>order</view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  import mix from '@/mixins/order.js'
+  export default class Example extends wepy.page {
+    
+    config = {
+      navigationBarTitleText: "",
+    };
+    mixins = [mix]
+  }
+</script>
+
+<style lang='less'>
+</style>
